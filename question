@@ -1,0 +1,18 @@
+LeetCode #30 — Substring with Concatenation of All Words
+Difficulty: Hard
+Language: C++
+Problem:
+Given a string s and an array of strings words, where all words have the same length, find all starting indices of substrings in s that contain every word from words exactly once and without any intervening characters.
+The order of the words does not matter.
+Example:
+Input:  s = "barfoothefoobarman"
+        words = ["foo","bar"]
+
+Output: [0,9]
+Explanation:
+The substrings "barfoo" and "foobar" contain both "bar" and "foo" exactly once.
+Constraints:
+1 <= s.length <= 10⁴
+1 <= words.length <= 5000
+1 <= words[i].length <= 30
+All words[i] have the same length.
