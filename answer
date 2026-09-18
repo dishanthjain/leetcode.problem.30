@@ -1,0 +1,58 @@
+Code:
+
+class Solution {
+public:
+    vector<int> findSubstring(string s, vector<string>& words) {
+        vector<int> result;
+
+        int wordLen = words[0].size();
+        int wordCount = words.size();
+        int totalLen = wordLen * wordCount;
+
+        unordered_map<string, int> required;
+
+        for (string word : words)
+            required[word]++;
+
+        for (int start = 0; start < wordLen; start++) {
+            int left = start;
+            int count = 0;
+            unordered_map<string, int> seen;
+
+            for (int right = start; right + wordLen <= s.size(); right += wordLen) {
+                string word = s.substr(right, wordLen);
+
+                if (required.count(word)) {
+                    seen[word]++;
+                    count++;
+
+                    while (seen[word] > required[word]) {
+                        string leftWord = s.substr(left, wordLen);
+                        seen[leftWord]--;
+                        left += wordLen;
+                        count--;
+                    }
+
+                    if (count == wordCount) {
+                        result.push_back(left);
+
+                        string leftWord = s.substr(left, wordLen);
+                        seen[leftWord]--;
+                        left += wordLen;
+                        count--;
+                    }
+                } else {
+                    seen.clear();
+                    count = 0;
+                    left = right + wordLen;
+                }
+            }
+        }
+
+        return result;
+    }
+};
+
+Explaination:
+
+The code uses a sliding window and hash maps to track how many times each word appears. It moves through the string in word-sized steps and records the starting index whenever all words are found exactly once.
